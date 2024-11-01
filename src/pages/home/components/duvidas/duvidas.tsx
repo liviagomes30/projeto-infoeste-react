@@ -1,22 +1,15 @@
-import { useState } from "react";
-import { Title, Wrapper, Image } from "../cursos/cursos.styles";
-import computador from "../../../../assets/icons/desenho.svg";
+import React, { useState } from "react";
 import {
   Form,
   FormGroup,
   FormLabel,
+  Image,
   Input,
   SubmitButton,
+  Title,
+  Wrapper,
 } from "./duvidas.styles";
-
-// Novo contêiner flex
-import styled from "styled-components";
-const FlexContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: 10px; /* Define o espaçamento entre a imagem e o formulário */
-`;
+import computador from "../../../../assets/icons/desenho.svg";
 
 export const Duvidas = () => {
   const [email, setEmail] = useState("");
@@ -26,15 +19,18 @@ export const Duvidas = () => {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
+
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
+
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(event.target.value);
   };
 
-  const handleSendClick = async (event: React.FormEvent) => {
+  const handleSendClick = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+
     const sheetDBUrl = "https://sheetdb.io/api/v1/p33s9qi7h0f5q";
     const payload = {
       Nome: name,
@@ -57,40 +53,39 @@ export const Duvidas = () => {
         setEmail("");
         setQuestion("");
       } else {
-        console.error("Falha ao enviar ao sheetDB ", response.statusText);
+        console.error("Falha ao enviar o sheetDB: ", response.statusText);
       }
     } catch (error) {
-      console.error("Erro ao enviar para o sheetDB ", error);
+      console.error("Erro ao enviar para o sheetDB: ", error);
     }
   };
 
   return (
     <>
-      <Title>Dúvidas</Title>
+      <Title>Dúvidas?</Title>
       <Wrapper>
-        {/* Novo contêiner flex para manter a imagem e o formulário lado a lado */}
-        <FlexContainer>
-          <Image src={computador} />
-          <Form onSubmit={handleSendClick}>
-            <FormGroup>
-              <FormLabel>Nome</FormLabel>
-              <Input type="text" value={name} onChange={handleNameChange} />
-            </FormGroup>
-            <FormGroup>
-              <FormLabel>Email</FormLabel>
-              <Input type="text" value={email} onChange={handleEmailChange} />
-            </FormGroup>
-            <FormGroup>
-              <FormLabel>Dúvida</FormLabel>
-              <Input
-                type="text"
-                value={question}
-                onChange={handleQuestionChange}
-              />
-            </FormGroup>
-            <SubmitButton type="submit">Enviar</SubmitButton>
-          </Form>
-        </FlexContainer>
+        <Image src={computador} />
+        <Form action="">
+          <FormGroup>
+            <FormLabel>Nome</FormLabel>
+            <Input type="text" value={name} onChange={handleNameChange} />
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Email</FormLabel>
+            <Input type="email" value={email} onChange={handleEmailChange} />
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Dúvida</FormLabel>
+            <Input
+              type="text"
+              value={question}
+              onChange={handleQuestionChange}
+            />
+          </FormGroup>
+          <SubmitButton type="submit" onClick={handleSendClick}>
+            Enviar
+          </SubmitButton>
+        </Form>
       </Wrapper>
     </>
   );
