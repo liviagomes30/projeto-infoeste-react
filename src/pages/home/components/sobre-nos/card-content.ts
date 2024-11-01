@@ -1,4 +1,4 @@
-import { CardType } from "./types";
+import { CardType } from "./type.ts";
 
 export const CardContent = (): CardType[] => [
   {
