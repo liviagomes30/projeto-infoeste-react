@@ -9,6 +9,15 @@ import {
   SubmitButton,
 } from "./duvidas.styles";
 
+// Novo contêiner flex
+import styled from "styled-components";
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 10px; /* Define o espaçamento entre a imagem e o formulário */
+`;
+
 export const Duvidas = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -59,26 +68,29 @@ export const Duvidas = () => {
     <>
       <Title>Dúvidas</Title>
       <Wrapper>
-        <Image src={computador} />
-        <Form onSubmit={handleSendClick}>
-          <FormGroup>
-            <FormLabel>Nome</FormLabel>
-            <Input type="text" value={name} onChange={handleNameChange} />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Email</FormLabel>
-            <Input type="text" value={email} onChange={handleEmailChange} />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Dúvida</FormLabel>
-            <Input
-              type="text"
-              value={question}
-              onChange={handleQuestionChange}
-            />
-          </FormGroup>
-          <SubmitButton type="submit">Enviar</SubmitButton>
-        </Form>
+        {/* Novo contêiner flex para manter a imagem e o formulário lado a lado */}
+        <FlexContainer>
+          <Image src={computador} />
+          <Form onSubmit={handleSendClick}>
+            <FormGroup>
+              <FormLabel>Nome</FormLabel>
+              <Input type="text" value={name} onChange={handleNameChange} />
+            </FormGroup>
+            <FormGroup>
+              <FormLabel>Email</FormLabel>
+              <Input type="text" value={email} onChange={handleEmailChange} />
+            </FormGroup>
+            <FormGroup>
+              <FormLabel>Dúvida</FormLabel>
+              <Input
+                type="text"
+                value={question}
+                onChange={handleQuestionChange}
+              />
+            </FormGroup>
+            <SubmitButton type="submit">Enviar</SubmitButton>
+          </Form>
+        </FlexContainer>
       </Wrapper>
     </>
   );
