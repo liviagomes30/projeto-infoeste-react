@@ -1,5 +1,5 @@
 import { CardContent } from "./card-content";
-import { Card, Message, SubTitle, Title, Wrapper } from "./sobre-nos.styles";
+import { Card, Message, Title, Wrapper } from "./sobre-nos.styles";
 import { CardType } from "./type";
 
 export const SobreNos = () => {
